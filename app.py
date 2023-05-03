@@ -12,16 +12,16 @@ from validation_models import BGPConfig
 
 def generate_config(device: Dict[str, str]) -> str:
     """
-    Function to pull in YAML host_var data.
-    Validate data conforms to constraints.
-    Render the configuration.
+    Function that retrieves YAML data from host variables.
+    Verify that the data meets the specified constraints.
+    Process the configuration.
 
 
     Args:
         device (Dict[str, str]): Each device in the inventory
 
     Returns:
-        str: The rendered BGP configuration for each device
+        str: BGP configuration processed for each device
     """
 
     hostname = device["hostname"]
@@ -39,7 +39,7 @@ def generate_config(device: Dict[str, str]) -> str:
 
 async def push_config(device: Dict[str, str]) -> Tuple[str, MultiResponse]:
     """
-    Function to push rendered configurations to the device
+    Function to send the processed configurations to the device
 
 
     Args:
@@ -47,7 +47,7 @@ async def push_config(device: Dict[str, str]) -> Tuple[str, MultiResponse]:
 
     Returns:
         Tuple[str, MultiResponse]: Returns the Device Prompt
-        & Scrapli Multiresponse Object
+        & Scrapli MultiResponse Object
     """
 
     async with AsyncIOSXEDriver(
@@ -65,7 +65,7 @@ async def push_config(device: Dict[str, str]) -> Tuple[str, MultiResponse]:
 
 async def main() -> None:
     """
-    Main coroutine
+    Major coroutine
     """
 
     coroutines = [push_config(device) for device in DEVICES]

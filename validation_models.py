@@ -1,7 +1,3 @@
-"""
-Define Models for Data Validation
-"""
-
 from ipaddress import IPv4Address
 from typing import List, Optional
 from pydantic import BaseModel, Field
@@ -9,11 +5,11 @@ from pydantic import BaseModel, Field
 
 class Peers(BaseModel):
     """Class for BGP Peer Configuration.
-       Inherits from the BGPConfig class.
+       This class is a subclass of the BGPConfig class.
 
     Types:
-        neighbor: BGP peer neighbor address. Must be valid IPv4 address.
-        peer_asn: BGP peer autonomous system number. Must be an integer (Range: 1-65535).
+        neighbor: BGP peer neighbor address. This field requires a valid IPv4 address.
+        peer_asn: BGP peer autonomous system number. This value should be an integer within the range of 1 to 65535.
     """
 
     neighbor: IPv4Address
@@ -24,8 +20,8 @@ class BGPConfig(BaseModel):
     """Class for BGP Configuration.
 
     Types:
-        asn: The local autonomous system number. Must be an integer (Range: 1-65535).
-        peers: Remote BGP peer configurations. Must adhere to the types defined in Peers.
+        asn: The local autonomous system number. The value must be a whole number within the range of 1 to 65535.
+        peers: Remote BGP peer configurations. The types must conform to the Peers definitions.
     """
 
     asn: int = Field(gt=0, le=65535)
